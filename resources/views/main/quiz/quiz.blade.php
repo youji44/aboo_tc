@@ -64,7 +64,7 @@
                                     @foreach($quiz as $key=>$item)
                                         <tr>
                                             <td>{{$key+1}}</td>
-                                            <td class="text-left">{{$item->question}}</td>
+                                            <td class="text-left">{!! $item->question !!}</td>
                                             <td class="text-left">
                                                 @foreach($item->answers as $kk=>$option)
                                                     <div class="custom-control custom-radio">

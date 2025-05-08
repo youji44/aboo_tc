@@ -114,10 +114,10 @@
                                     <table class="table table-hover progress-table text-center table-bordered align-middle"  style="font-size:small;">
                                         <thead class="text-uppercase">
                                         <tr class="bg-light">
-                                            <th scope="col">#</th>
-                                            <th scope="col">QUESTION</th>
-                                            <th scope="col">CORRECT CHOICE</th>
-                                            <th scope="col">ACTION</th>
+                                            <th scope="col" width="5%">#</th>
+                                            <th scope="col" width="60%">QUESTION</th>
+                                            <th scope="col" width="20%">CORRECT CHOICE</th>
+                                            <th scope="col" width="15%">ACTION</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -134,7 +134,8 @@
                                                     @endforeach
                                                 </td>
                                                 <td>
-                                                    <button data-tip="tooltip" title="Edit" onclick="show_edit('{{route('settings.course.quiz.edit',$item->id)}}?cid={{$course->id}}')" class="btn btn-info btn-sm"><i class="ti-pencil-alt"></i></button>
+                                                    <a data-tip="tooltip" title="Edit" href="{{route('settings.course.quiz.edit',$item->id)}}?cid={{$course->id}}" class="btn btn-info btn-sm"><i class="ti-pencil-alt"></i></a>
+{{--                                                    <button data-tip="tooltip" title="Edit" onclick="show_edit('{{route('settings.course.quiz.edit',$item->id)}}?cid={{$course->id}}')" class="btn btn-info btn-sm"><i class="ti-pencil-alt"></i></button>--}}
                                                     <button data-tip="tooltip" title="Delete" data-placement="left" onclick="delete_id({{$item->id}})" data-toggle="modal" data-target="#delete_form" type="button" class="btn btn-danger btn-sm"><i class="ti-trash"></i></button>
                                                     <form id="form_{{$item->id}}" hidden action="{{route('settings.course.quiz.delete')}}" method="post">
                                                         @csrf <input title="id" hidden name="id" value="{{$item->id}}">

@@ -245,7 +245,7 @@ class SettingCourseController extends WsController
                 ->select('id','quiz_id','value','name','correct')
                 ->get();
 
-            return view('settings.course.quiz', compact('quiz','course', 'course_quiz_options'));
+            return view('settings.course.edit_quiz', compact('quiz','course', 'course_quiz_options'));
 
         }catch (\Exception $e){
             Log::info($e->getMessage());
@@ -298,7 +298,7 @@ class SettingCourseController extends WsController
             }
 
             DB::commit();
-            return Redirect::back()->with('success', "Successful Added!");
+            return Redirect::route('settings.course.detail',['cid'=>$course_id])->with('success', "Successful Added!");
 
         }catch(\Exception $e){
             DB::rollBack();

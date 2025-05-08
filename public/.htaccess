@@ -5,6 +5,9 @@
 
     RewriteEngine On
 
+    # Ensure JavaScript files are served with the correct MIME type
+    AddType application/javascript .js
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

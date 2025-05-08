@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>@yield('title')| IR - Dashboard</title>
+        <title>@yield('title')| TC - Dashboard</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta name="description" content="aboo qc dashboard" />
+        <meta name="description" content="Training Courses Dashboard" />
         <!-- Favicon -->
         <link rel="shortcut icon" href="{{ asset('favico.ico') }}">
         <link rel="icon" href="{{ asset('favico.ico') }}" type="image/x-icon">
@@ -31,6 +31,7 @@
         <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/custom1.css') }}">
+
         @yield('header_styles')
         <style>
             .single-report .icon {
@@ -44,9 +45,6 @@
             }
             .metismenu li:hover>a, .metismenu li.active>a {
                 color: {{\Session::get('p_loc_color')==''?'#f2114c':\Session::get('p_loc_color')}};
-            }
-            .ck-editor__editable {
-                min-height: 150px !important;
             }
             .select2-container{
                 width: 100% !important;
@@ -62,29 +60,7 @@
             .select2-container--default .select2-selection--single .select2-selection__arrow{
                 height: 36px;
             }
-            table.dataTable{
-                margin-top: 0px !important;
-            }
-            .btn-sm{
-                margin-bottom: 2px;
-            }
-            .btn-outline-primary.dropdown-toggle{
-                padding: 9px 10px;
-            }
-
-            .ows_one{
-                background-color: #f0f0f0;
-            }
-
         </style>
-        <!-- Google tag (gtag.js) -->
-        {{--<script async src="https://www.googletagmanager.com/gtag/js?id=G-CTPNKNTW81"></script>--}}
-        {{--<script>--}}
-            {{--window.dataLayer = window.dataLayer || [];--}}
-            {{--function gtag(){dataLayer.push(arguments);}--}}
-            {{--gtag('js', new Date());--}}
-            {{--gtag('config', 'G-CTPNKNTW81');--}}
-        {{--</script>--}}
         <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
         <script src="{{ asset('assets/dropzone/dist/dropzone.js') }}"></script>
         <script>
@@ -92,10 +68,9 @@
             let unchecked_list = [];
         </script>
     </head>
-
     <body>
         <div class="page-container">
-                @include('partials.menu_ir')
+                @include('partials.menu')
             <div class="main-content">
                 @yield('content')
             </div>
@@ -162,7 +137,6 @@
         let username = '{{\Sentinel::getUser()->name}}'
     </script>
 
-
     <script src="{{ asset('assets/js/vendor/modernizr-2.8.3.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
@@ -188,27 +162,15 @@
     <script src="{{ asset('assets/datatables/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/datatables/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/datatables/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
-     <script src="{{ asset('assets/ckeditor/ckeditor5-build-classic/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/chart.js/Chart.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
     <script src="{{ asset('assets/js/scripts1.js') }}"></script>
     <!-- JavaScript -->
     @yield('footer_scripts')
     <script>
-        let ck_editor = null;
-        if($('textarea').length > 0 && $('#comments').length){
-            ClassicEditor
-                .create( document.querySelector( '#comments' ) )
-                .then( function(editor) {
-                    ck_editor = editor;
-                    editor.ui.view.editable.element.style.height = '150px';
-                } )
-                .catch( function(error) {
-                    console.error( error );
-                } );
-        }
+
         $(document).ready(function(){
-            // file upload dropify
+
             /* Basic Init*/
             $('.dropify').dropify();
             $('.dropify-clear').click(function(e){
@@ -461,31 +423,6 @@
             });
         }
 
-        function create_deficiency() {
-
-        }
-
-        function convert(date) {
-            // const options = {
-            //     year: "numeric",
-            //     month: "2-digit",
-            //     day: "numeric",
-            // };
-            // const formattedDate = new Date(date).toLocaleDateString("en-US", options);
-            // const [month, day, year] = formattedDate.split('/');
-            // return `${year}-${month}-${day}`;
-            return date;
-        }
-
-        function clean(data) {
-            if (data == null) return '-';
-            else return data;
-        }
-
-        function select_color(color) {
-            $("#color").attr('class','custom-select alert-'+color);
-        }
-
         let load_data = function (isdate) {
             if(isdate === true){
                 $("#date").val('');
@@ -497,55 +434,6 @@
             $("#form_plocation").submit();
         };
 
-        function colored(data) {
-            if (data == 'Satisfied')
-                return '<span class="text-success">'+data+'</span>';
-            else
-                return '<span class="text-danger">'+data+'</span>'
-        }
-
-        function get_color(data) {
-            if (data == null) return 'secondary';
-            else return data;
-        }
-        function get_other(data) {
-            if (data == null)return 'Other';
-            else return data;
-        }
-
-        function maplink(name, lat,lng) {
-            let map = 'https://www.google.com/maps/search/'+lat+','+lng;
-            return '<a href="'+map+'" target="_blank">'+name+' <i class="ti-location-pin"></i></a>'
-        }
-        function set_geo(){
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    $("#geo_latitude").val(position.coords.latitude);
-                    $("#geo_longitude").val(position.coords.longitude);
-                });
-            }
-        }
-        let regulation = function (data) {
-            let regulations = data.regulations;
-            if(regulations == undefined)regulations = 'No specification';
-            $("#title_body").html($(".page-title").html()+' Regulations');
-            let va = '<div>'+regulations+'</div>';
-            $("#detail_body").html(va);
-            $("#deficiency").attr('hidden','hidden');
-            $("#detail").show();
-        };
-
-        function add_flight_count(url) {
-            let ckeditor;
-            $.get(url, function (data,status) {
-                $("#title_body1").html('Add Daily Flight Counts');
-                $("#add_body").html(data);
-                $("#add_modal").modal('show');
-            })
-        }
-        function cancel() {
-            $("#add_modal").modal('hide');
-        }
 
         function exportPDF(title, fTitle, columns,pageType,imageFlag,widthFlag,align,id) {
             /*================================
@@ -734,65 +622,6 @@
                     }]
                 });
                 $('.dt-buttons').hide();
-            }
-        }
-
-        if($("div#images").length > 0){
-            let uploaded = {};
-            Dropzone.autoDiscover = false;
-            new Dropzone(document.querySelector("#images"), {
-                url: "{{ route('images.upload') }}",
-                maxFilesize: 24, // MB
-                maxFiles: 24,
-                addRemoveLinks: true,
-                dictRemoveFile:"Remove Image",
-                dictDefaultMessage:"<i class='ti-cloud-up text-secondary' style='font-size:48px'></i><p>Drag and drop a file here or click</p>",
-                capture: "camera",
-                acceptedFiles:"image/*",
-                headers: {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                },
-                success: function (file, response) {
-                    $('form').append('<input type="hidden" name="images[]" value="' + response.name + '">');
-                    uploaded[file.name] = response.name
-                },
-                error: function(file, message) {
-                    console.log(message);
-                },
-                removedfile: function (file) {
-                    file.previewElement.remove();
-                    let name = '';
-                    if (typeof file.file_name !== 'undefined') {
-                        name = file.file_name
-                    } else {
-                        name = uploaded[file.name]
-                    }
-                    $('form').find('input[name="images[]"][value="' + name + '"]').remove()
-                },
-                init: function () {
-                    if(images) {
-                        if(Array.isArray(images)) {
-                            images.forEach(function (img) {
-                                if(img !== "")
-                                    $('form').append('<input type="hidden" name="images[]" value="' + img + '">')
-                            })
-                        }
-                    }
-                }
-            });
-        }
-        function remove_files(file_name, name) {
-            $('form').find('div[class="dz-preview dz-image-preview"][data-img="' + file_name + '"]').remove();
-            $('form').find('div[class="dz-preview dz-file-preview"][data-pdf="' + file_name + '"]').remove();
-            $('form').find('input[name="'+name+'[]"][value="' + file_name + '"]').remove()
-        }
-
-        function isValidJson(json) {
-            try {
-                JSON.parse(json);
-                return true;
-            } catch (e) {
-                return false;
             }
         }
 

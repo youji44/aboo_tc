@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers\Setting;
 
-use App\Export\ExportUser;
 use App\Http\Controllers\WsController;
 use App\Models\User;
 use App\Models\UserLocations;
@@ -11,14 +10,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
-use Maatwebsite\Excel\Facades\Excel;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Reminder;
 use URL;
-use Validator;
-use View;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends WsController
 {
@@ -52,9 +49,7 @@ class UserController extends WsController
                 ->select('u.*','r.slug')
                 ->where('u.email',$user_microsoft->getEmail())->first())
             {
-//                if($user->slug != 'superadmin' && !$user_access = DB::table('user_locations')->where('user_id',$user->id)->where('qc',0)->first()){
-//                    return Redirect::route('login')->withInput()->with('info', 'User cannot access on this Portal');
-//                }
+
             }else{
                 return Redirect::route('login')->with('error', 'Current user does not exist in this Portal!');
             }
@@ -95,16 +90,11 @@ class UserController extends WsController
             Session::put('geo_lng', $request->get('geo_longitude'));
 
             if(Sentinel::inRole('operator')){
-                return Redirect::route('daily.fuel')->with('success', 'Welcome to Sign in IR Portal');
+                return Redirect::route('daily.fuel')->with('success', 'Welcome to Sign in Training Course Portal');
             }
             // Redirect to the Dashboard page
-            return Redirect::route('dashboard')->with('success', 'Welcome to Sign in IR Portal');
+            return Redirect::route('dashboard')->with('success', 'Welcome to Sign in Training Course Portal');
 
-//            // Try to log the User in
-//            if (Sentinel::authenticate([$user->username, $user->password]))
-//            {
-//
-//            }
         } catch (NotActivatedException $e) {
             return Redirect::route('login')->with('error', 'User can not login');
 
@@ -118,7 +108,6 @@ class UserController extends WsController
     }
 
     ///////////////////End Microsoft API integration////////////////////////////////
-
 
     public function loginAdmin(Request $request){
 
@@ -175,11 +164,7 @@ class UserController extends WsController
                 Session::put('geo_lat', $request->get('geo_latitude'));
                 Session::put('geo_lng', $request->get('geo_longitude'));
 
-                if(Sentinel::inRole('operator')){
-                    return Redirect::route('daily.fuel')->with('success', 'Welcome');
-                }
-                // Redirect to the Dashboard page
-                return Redirect::route('dashboard')->with('success', 'Welcome to Signing in IR Portal');
+                return Redirect::route('dashboard')->with('success', 'Welcome to Signing in Training Course Portal');
             }
             return Redirect::route('login')->with('error', 'Incorrect Username or password!');
 
@@ -209,8 +194,8 @@ class UserController extends WsController
 
         try {
             $user_id = '';
-            if(\Sentinel::check()) {
-                $user_id = \Sentinel::getUser()->id;
+            if(Sentinel::check()) {
+                $user_id = Sentinel::getUser()->id;
             }
             DB::beginTransaction();
             $user = DB::table('users as u')

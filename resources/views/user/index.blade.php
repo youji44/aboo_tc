@@ -24,7 +24,7 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <div class="breadcrumbs-area clearfix">
-                                    <h4 class="page-title pull-left">Settings > User Management</h4>
+                                    <h4 class="page-title pull-left">  <a class="text-dark" href="{{route('settings')}}">Settings</a> > User Management</h4>
                                 </div>
                             </div>
                         </div>
@@ -55,15 +55,13 @@
                                     <th scope="col">POSITION</th>
                                     <th scope="col">USER ROLE</th>
                                     <th scope="col">PRIMARY LOCATION</th>
-                                    <th scope="col">PORTAL ACCESS</th>
                                     <th scope="col">ACTION</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @php($no=1)
-                                @foreach($users  as $item)
+                                @foreach($users  as $key=>$item)
                                 <tr>
-                                    <td>{{$no++}}</td>
+                                    <td>{{$key+1}}</td>
                                     <td>{{$item->name}}</td>
                                     <td>{{$item->username}}</td>
                                     <td>{{$item->staff_position}}</td>
@@ -74,10 +72,6 @@
                                             <div class="alert p-1 m-1" style="background-color: {{$location->location_color}};color:#ffffff">{{$location->location}}</div>
                                             @endif
                                         @endforeach
-                                    </td>
-                                    <td>
-                                        {!! $item->qc==0?'<div class="alert alert-success">QC Access</div>':''!!}
-                                        {!! $item->fm==0?'<div class="alert alert-info">FM Access</div>':''!!}
                                     </td>
                                     <td>
                                         <a href="{{ route('settings.user.edit',$item->id) }}" class="btn btn-success btn-sm"><i class="ti-pencil-alt"></i> Edit</a>

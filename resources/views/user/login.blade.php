@@ -19,8 +19,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
 
-    <!-- modernizr css -->
-{{--    <script src="{{ asset('assets/js/vendor/modernizr-2.8.3.min.js') }}"></script>--}}
 </head>
 
 <body>
@@ -43,7 +41,7 @@
                         <a href="{{ route('login') }}"><img style="max-height: 72px" src="{{ asset('logo.png') }}" alt="logo"></a>
                     </div>
                     <h4>Sign In</h4>
-                    <p>Welcome to Incident Report Portal</p>
+                    <p>Welcome to Training Course Portal</p>
                 </div>
                 <input hidden name="geo_latitude" id="geo_latitude">
                 <input hidden name="geo_longitude" id="geo_longitude">

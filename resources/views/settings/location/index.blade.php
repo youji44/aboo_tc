@@ -25,7 +25,7 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <div class="breadcrumbs-area clearfix">
-                                    <h4 class="page-title pull-left">{{\Session::get('p_loc_name')}} > Settings > Primary Location</h4>
+                                    <h4 class="page-title pull-left">{{\Session::get('p_loc_name')}} >  <a class="text-dark" href="{{route('settings')}}">Settings</a> > Primary Location</h4>
                                 </div>
                             </div>
                         </div>
@@ -37,7 +37,6 @@
     <div class="row">
         <div class="col-xl mt-2">
             <a class="btn btn-success btn-sm" href="{{ route('settings.location.add') }}"><i class="ti-plus"></i> Add New</a>
-            <a class="btn btn-info btn-sm" href="{{route('settings.regulations','location')}}"><i class="ti-plus"></i> Regulations</a>
         </div>
     </div>
 
@@ -71,8 +70,8 @@
                                     <td>{{$item->location_longitude}}</td>
                                     <td>{{$item->location_address}}</td>
                                     <td>
-                                        <a href="{{ route('settings.location.edit',$item->id) }}" type="button" class="btn btn-info btn-sm"><i class="ti-pencil-alt"></i> Edit</a>
-                                        <button data-tip="tooltip" title="Delete" data-placement="left" onclick="delete_id({{$item->id}})" data-toggle="modal" data-target="#delete_form" type="button" class="btn btn-danger btn-sm"><i class="ti-trash"></i> Remove</button>
+                                        <a data-tip="tooltip" title="Edit" href="{{ route('settings.location.edit',$item->id) }}" type="button" class="btn btn-info btn-sm"><i class="ti-pencil-alt"></i> </a>
+                                        <button data-tip="tooltip" title="Delete" data-placement="left" onclick="delete_id({{$item->id}})" data-toggle="modal" data-target="#delete_form" type="button" class="btn btn-danger btn-sm"><i class="ti-trash"></i> </button>
                                         <form id="form_{{$item->id}}" hidden action="{{route('settings.location.delete')}}" method="post">
                                             @csrf <input hidden name="id" value="{{$item->id}}">
                                         </form>

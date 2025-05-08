@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
@@ -15,30 +15,6 @@ class WsController extends Controller {
         $this->isAdmin = false;
         $this->user_id = Sentinel::getUser()->id;
         if( Sentinel::inRole('admin') || Sentinel::inRole('superadmin'))$this->isAdmin = true;
-    }
-
-    public function update_session(Request $request)
-    {
-        Session::put('geo_lat', $request->get('geo_latitude'));
-        Session::put('geo_lng', $request->get('geo_longitude'));
-        return response()->json($request->all());
-    }
-
-    public function convert_desc($desc){
-        $str_desc = '';
-        if(is_array($desc = json_decode($desc))){
-            foreach ($desc as $item){
-                foreach ($item as $key=>$value){
-                    if (strtolower(trim(str_replace(' ','',$value))) == 'satisfied') $value = '<span class="text-success">'.$value.'</span>';
-                    if (strtolower(trim(str_replace(' ','',$value))) == 'notsatisfied' || strtolower(trim(str_replace(' ','',$value))) == 'unsatisfied') $value = '<span class="text-danger">'.$value.'</span>';
-                    if (strtolower(trim(str_replace(' ','',$value))) == 'other') $value = '<span class="text-secondary">'.$value.'</span>';
-                    if (strtolower(trim(str_replace(' ','',$value))) == 'notapplicable') $value = '<span class="text-secondary">'.$value.'</span>';
-                    else $value = '<span class="text-secondary">'.$value.'</span>';
-                    $str_desc .= $key.' - '.$value.'<br>';
-                }
-            }
-        }
-        return $str_desc?$str_desc:'-';
     }
 
     public function images_upload(Request $request){
@@ -93,5 +69,30 @@ class WsController extends Controller {
         }
 
         return response()->json(['name'=> $images]);
+    }
+
+    public function files_upload(Request $request){
+        try{
+            $file = null;
+            if($file_temp = $request->file('file')){
+                $destinationPath = public_path().'/uploads/settings/files';
+                $file =  Str::random(10).'.'.$file_temp->getClientOriginalExtension();
+                $file_temp->move($destinationPath, $file);
+            }
+        }catch (\Exception $e){
+            Log::info($e->getMessage());
+        }
+        return response()->json(['name'=> $file]);
+    }
+
+    public function get_download(Request $request)
+    {
+        try{
+            $filename = $request->get('file');
+            $file = public_path(). "/uploads/settings/files/".$filename;
+            return Response::download($file, $filename);
+        }catch (\Exception $e){
+            return null;
+        }
     }
 }

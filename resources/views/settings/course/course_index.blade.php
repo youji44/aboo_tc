@@ -69,17 +69,18 @@
                                     <table class="table table-hover progress-table text-center table-bordered align-middle"  style="font-size:small;">
                                         <thead class="text-uppercase">
                                         <tr class="bg-light">
-                                            <th scope="col">#</th>
-                                            <th scope="col">TOPICS</th>
-                                            <th scope="col">ACTION</th>
+                                            <th scope="col" width="5%">#</th>
+                                            <th scope="col" width="70%">TOPICS</th>
+                                            <th scope="col" width="25%">ACTION</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($topics as $key=>$item)
                                             <tr>
                                                 <td>{{$key+1}}</td>
-                                                <td>{{$item->topic_title}}</td>
+                                                <td class="text-left">{{$item->topic_title}}</td>
                                                 <td>
+                                                    <a data-tip="tooltip" title="Show" href="javascript:" onclick="show_edit('{{route('settings.course.topic.detail',$item->id)}}?cid={{$course->id}}','Topic')" class="btn btn-outline-warning btn-sm"><i class="ti-search"></i></a>
                                                     <a data-tip="tooltip" title="Edit" href="{{route('settings.course.topic.edit',$item->id)}}?cid={{$course->id}}" class="btn btn-info btn-sm"><i class="ti-pencil-alt"></i></a>
                                                     <button data-tip="tooltip" title="Delete" data-placement="left" onclick="delete_id({{$item->id}})" data-toggle="modal" data-target="#delete_form" type="button" class="btn btn-danger btn-sm"><i class="ti-trash"></i></button>
                                                     <form id="form_{{$item->id}}" hidden action="{{route('settings.course.topic.delete')}}" method="post">
@@ -178,9 +179,9 @@
     </script>
     <script>
 
-        function show_edit(url){
+        function show_edit(url, quiz = 'Quiz'){
             $.get(url, function (data) {
-                $('#title_modal').html($('.page-title').html() + '> Quiz ');
+                $('#title_modal').html($('.page-title').html() + '> '+ quiz);
                 $("#modal_body").html(data);
                 $("#input_modal").modal('show');
             });

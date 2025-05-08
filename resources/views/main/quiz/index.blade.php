@@ -49,11 +49,14 @@
                                         <span class="badge badge-info mr-2" style="font-size: 100%">{{$item->quiz_count}}</span>
                                         <span class="font-14">Questions</span>
                                         @if(empty($item->passed) || $item->passed == 1)
-                                            <a href="{{ route('course.quiz.list') }}?cid={{$item->id}}" style="min-width: 100px" class="btn btn-light btn-sm ml-3"> Not Started </a>
+                                            <a href="{{ route('course.quiz.list') }}?cid={{$item->id}}" style="min-width: 160px" class="btn btn-light btn-sm ml-3">
+                                                Not Started </a>
                                         @elseif($item->passed == 2)
-                                            <a href="{{ route('course.quiz.list') }}?cid={{$item->id}}" style="min-width: 100px" class="btn btn-warning btn-sm ml-3"><i class="ti-close"></i> Failed </a>
+                                            <a href="{{ route('course.quiz.list') }}?cid={{$item->id}}" style="min-width: 160px" class="btn btn-warning btn-sm ml-3">
+                                                <i class="ti-close"></i> Failed <span>(Score: {{$item->grade}})</span></a>
                                         @else
-                                            <a href="{{ route('course.quiz.list') }}?cid={{$item->id}}" style="min-width: 100px" class="btn btn-success btn-sm ml-3"><i class="ti-check"></i> Passed </a>
+                                            <a href="{{ route('course.quiz.list') }}?cid={{$item->id}}" style="min-width: 160px" class="btn btn-success btn-sm ml-3">
+                                                <i class="ti-check"></i> Passed <span>(Score: {{$item->grade}})</span></a>
                                         @endif
                                     </div>
                                 </div>

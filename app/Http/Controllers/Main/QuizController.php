@@ -37,6 +37,10 @@ class QuizController extends WsController
                     ->where('user_id', $user_id)
                     ->where('course_id', $item->id)
                     ->value('took');
+                $item->grade = DB::table('tc_training_course_quiz')
+                    ->where('user_id', $user_id)
+                    ->where('course_id', $item->id)
+                    ->value('grade');
             }
 
             return View('main.quiz.index', compact('courses'));
@@ -217,7 +221,8 @@ class QuizController extends WsController
                 ->where('status','<',2)
                 ->update(
                     [
-                        'took' => $grade < 80?2:3,
+                        'took' => $grade < 80 ? 2 : 3,
+                        'grade' => number_format($grade,'0','.',''),
                     ],
                 );
 

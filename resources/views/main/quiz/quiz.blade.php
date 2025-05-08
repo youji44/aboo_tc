@@ -77,8 +77,9 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-                                <div class="form-group m-3">
-                                    <button class="btn btn-success btn-sm"><i class="ti-arrow-up"></i> Finish </button>
+                                <div class="form-group mt-3">
+                                    <button type="submit" class="btn btn-success btn-sm mr-2"><i class="ti-arrow-up"></i> Finish </button>
+                                    <a type="button" href="{{ route('course.quiz') }}" class="btn btn-danger btn-sm"><i class="ti-close"></i> Cancel </a>
                                 </div>
                             </form>
                         </div>

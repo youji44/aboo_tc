@@ -117,6 +117,7 @@ Route::model('users', 'App\User');
 
                 Route::get('/settings/course/detail', array('as' => 'settings.course.detail', 'uses' => 'Setting\SettingCourseController@course_detail'));
                 Route::get('/settings/course/detail/topic/{id}/edit', array('as' => 'settings.course.topic.edit', 'uses' => 'Setting\SettingCourseController@topic_edit'));
+                Route::get('/settings/course/detail/topic/{id}/detail', array('as' => 'settings.course.topic.detail', 'uses' => 'Setting\SettingCourseController@topic_detail'));
                 Route::post('/settings/course/detail/topic/save', array('as' => 'settings.course.topic.save', 'uses' => 'Setting\SettingCourseController@topic_save'));
                 Route::post('/settings/course/detail/topic/delete', array('as' => 'settings.course.topic.delete', 'uses' => 'Setting\SettingCourseController@topic_delete'));
 

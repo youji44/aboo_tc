@@ -209,6 +209,24 @@ class SettingCourseController extends WsController
             return Redirect::back()->with('error', 'Failed Deleting!');
     }
 
+    public function topic_detail($id)
+    {
+        try {
+            if(!$topic = DB::table('tc_settings_courses_details_topic')
+                ->where('id', $id)
+                ->select('id','course_id','topic_title','description','attach_files')
+                ->first()){
+                return Redirect::back()->with('error', 'There is some errors');
+            }
+
+            return View('settings.course.topic_detail', compact('topic'));
+
+        }catch(\Exception $e){
+            Log::info($e->getMessage());
+            return back()->with('error', "Failed!");
+        }
+    }
+
     public function quiz_edit($id, Request $request)
     {
         try{

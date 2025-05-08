@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 
 class QuizController extends WsController
 {
-
     public function index(Request $request)
     {
         try {
@@ -213,6 +212,7 @@ class QuizController extends WsController
             }
 
             $grade = count($quiz) > 0? ($is_correct * 100 / count($quiz)):0;
+            $limit = env('PASS_SCORE')??80;
 
             DB::table('tc_training_course_quiz')
                 ->where('pid', $pid)
@@ -221,7 +221,7 @@ class QuizController extends WsController
                 ->where('status','<',2)
                 ->update(
                     [
-                        'took' => $grade < 80 ? 2 : 3,
+                        'took' => $grade < $limit ? 2 : 3, //2:failed, 3: passed
                         'grade' => number_format($grade,'0','.',''),
                     ],
                 );

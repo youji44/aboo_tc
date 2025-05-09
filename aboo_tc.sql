@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `colors` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table aboo_tc.colors: ~6 rows (approximately)
 REPLACE INTO `colors` (`id`, `name`) VALUES
@@ -97,16 +97,16 @@ CREATE TABLE IF NOT EXISTS `primary_location` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned DEFAULT NULL,
   `user_name` varchar(250) DEFAULT NULL,
-  `location` text DEFAULT NULL,
+  `location` mediumtext DEFAULT NULL,
   `location_color` varchar(50) DEFAULT NULL,
   `location_latitude` varchar(50) DEFAULT NULL,
   `location_longitude` varchar(50) DEFAULT NULL,
-  `location_address` text DEFAULT NULL,
+  `location_address` mediumtext DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table aboo_tc.primary_location: ~4 rows (approximately)
 REPLACE INTO `primary_location` (`id`, `user_id`, `user_name`, `location`, `location_color`, `location_latitude`, `location_longitude`, `location_address`, `status`, `created_at`, `updated_at`) VALUES
@@ -179,9 +179,9 @@ CREATE TABLE IF NOT EXISTS `tc_settings_courses` (
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table aboo_tc.tc_settings_courses: ~3 rows (approximately)
+-- Dumping data for table aboo_tc.tc_settings_courses: ~4 rows (approximately)
 REPLACE INTO `tc_settings_courses` (`id`, `user_id`, `user_name`, `pid`, `course_title`, `status`, `created_at`, `updated_at`) VALUES
 	(1, 1, 'Aboo Afsal', 1, 'Course 11', 0, '2024-12-13 03:11:46', '2025-05-01 13:30:01'),
 	(2, 1, 'Aboo Afsal', 1, 'Course 22', 0, '2024-12-13 03:12:36', '2025-05-01 13:29:56'),
@@ -200,9 +200,9 @@ CREATE TABLE IF NOT EXISTS `tc_settings_courses_details_quiz` (
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table aboo_tc.tc_settings_courses_details_quiz: ~10 rows (approximately)
+-- Dumping data for table aboo_tc.tc_settings_courses_details_quiz: ~14 rows (approximately)
 REPLACE INTO `tc_settings_courses_details_quiz` (`id`, `user_id`, `user_name`, `course_id`, `question`, `input_type`, `status`, `created_at`, `updated_at`) VALUES
 	(1, 1, 'Aboo Afsal', 1, '<h1>Question 1🍒</h1>', 0, 0, '2025-05-01 15:15:08', '2025-05-08 16:37:15'),
 	(2, 1, 'Aboo Afsal', 1, 'Question 2', 0, 0, '2025-05-01 15:15:29', '2025-05-01 15:15:29'),
@@ -229,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `tc_settings_courses_details_quiz_options` (
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table aboo_tc.tc_settings_courses_details_quiz_options: ~38 rows (approximately)
 REPLACE INTO `tc_settings_courses_details_quiz_options` (`id`, `quiz_id`, `value`, `name`, `correct`, `created_at`, `updated_at`) VALUES
@@ -309,9 +309,9 @@ CREATE TABLE IF NOT EXISTS `tc_training_course_quiz` (
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table aboo_tc.tc_training_course_quiz: ~2 rows (approximately)
+-- Dumping data for table aboo_tc.tc_training_course_quiz: ~3 rows (approximately)
 REPLACE INTO `tc_training_course_quiz` (`id`, `user_id`, `user_name`, `pid`, `course_id`, `took`, `timing`, `grade`, `status`, `created_at`, `updated_at`) VALUES
 	(1, 1, 'Aboo Afsal', 1, 1, 2, '87', '50', 0, '2025-05-08 09:14:45', '2025-05-08 16:38:49'),
 	(2, 1, 'Aboo Afsal', 1, 2, 2, '19', '0', 0, '2025-05-08 09:17:52', '2025-05-08 16:38:29'),
@@ -330,9 +330,9 @@ CREATE TABLE IF NOT EXISTS `tc_training_course_quiz_answer` (
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table aboo_tc.tc_training_course_quiz_answer: ~2 rows (approximately)
+-- Dumping data for table aboo_tc.tc_training_course_quiz_answer: ~10 rows (approximately)
 REPLACE INTO `tc_training_course_quiz_answer` (`id`, `user_id`, `user_name`, `pid`, `course_id`, `quiz_id`, `answer`, `status`, `created_at`, `updated_at`) VALUES
 	(1, 1, 'Aboo Afsal', 1, 2, 8, '1', 0, '2025-05-08 09:18:48', '2025-05-08 09:18:48'),
 	(2, 1, 'Aboo Afsal', 1, 2, 9, '0', 0, '2025-05-08 09:18:48', '2025-05-08 09:18:48'),
@@ -361,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `tc_training_course_topic` (
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table aboo_tc.tc_training_course_topic: ~8 rows (approximately)
 REPLACE INTO `tc_training_course_topic` (`id`, `user_id`, `user_name`, `pid`, `date`, `exit`, `course_id`, `topic_id`, `reviewed`, `duration`, `status`, `created_at`, `updated_at`) VALUES
